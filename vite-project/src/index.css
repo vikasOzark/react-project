@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root{
+    background-color: rgba(197, 197, 197, 0.256);
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+}
