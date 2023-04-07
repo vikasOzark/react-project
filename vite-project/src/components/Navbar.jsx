@@ -24,7 +24,7 @@ export const Navbar = () => {
                         {
                             actions.map((element) => (
                                 <Link to={`${element.link}`}>
-                                    <div className="m-1 mb-2 rounded bg-white p-2 hover:shadow-md hover:bg-slate-300 transition-all" >
+                                    <div className="m-1 mb-2 rounded bg-white p-2 hover:shadow-lg transition-all" >
                                         {element.action_name}
                                     </div>
                                 </Link>

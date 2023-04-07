@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import { LoginComponent } from './Auth'
+import { LoginComponent, Register } from './Auth'
 import { Home } from "./Home"
 import { IssuePage } from "./Issue"
 
@@ -20,6 +20,8 @@ export const Base = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="/issue" element={<IssuePage />} />
                             <Route path="/login" element={<LoginComponent />} />
+                            <Route path="/register" element={<Register />} />
+
                         </Routes>
                     </div>
                 </div>

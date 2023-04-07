@@ -9,7 +9,7 @@ export const Tags = [
     },
     {
         tag_name : 'feature',
-        color : 'blue',
+        color : 'red',
     },
 
 ]
@@ -30,20 +30,19 @@ export const Home = () => {
             <div className="bg-white p-2 shadow-lg mt-2 flex justify-between rounded-md items-center ">
                 <div className="">
                     <ul className="flex gap-4">
-                        <li className="">
+                        <li className="bg-">
                             <Chips name='Open' status='9' />
                         </li>
-                        <li className="">
+                        <li className="bg-">
                             <Chips name='Close' status='9' />
                         </li>
-                        <li className="">
+                        <li className="bg-">
                             <Chips name='All' status='9' />
                         </li>
                     </ul>
                 </div>
                 <div className=" flex gap-3">
-                    <button className="border border-blue-600 text-blue-600 rounded-md px-3 shadow hover:bg-blue-500 hover:text-white transition-all py-1">Edit Issue /-</button>
-                    <ActionButton name='Create issue +'  action={'/issue'} css='' />
+                    <ActionButton name='Edit issue +'  css='bg-white border border-blue-500' />
                     <Link to={'/issue'}>
                         <ActionButton name='Create issue +'  css='' />
                     </Link>
@@ -65,15 +64,14 @@ export const Home = () => {
                     tags = {Tags}
                 />
             </div>
-            
         </>
     )
 }
 
 export const Chips = (props) => {
     return (
-        <div className="border rounded-md px-2 cursor-pointer hover:bg-gray-200">
-            {props.name} <span className="px-3 m-1 rounded-2xl text-gray-500 bg-white transition-all ">{props.status}</span>
+        <div className="border rounded-md px-2 cursor-pointer hover:bg-gray-200 bg-gray-100">
+            {props.name} <span className="px-3 m-1 rounded-2xl text-gray-500 transition-all bg-gray-100">{props.status}</span>
         </div>
     )
 }
