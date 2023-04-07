@@ -8,8 +8,8 @@ export const Tags = [
         color : 'blue',
     },
     {
-        tag_name : 'feature',
-        color : 'blue',
+        tag_name : 'implimentation',
+        color : 'red',
     },
 
 ]
@@ -43,7 +43,6 @@ export const Home = () => {
                 </div>
                 <div className=" flex gap-3">
                     <button className="border border-blue-600 text-blue-600 rounded-md px-3 shadow hover:bg-blue-500 hover:text-white transition-all py-1">Edit Issue /-</button>
-                    <ActionButton name='Create issue +'  action={'/issue'} css='' />
                     <Link to={'/issue'}>
                         <ActionButton name='Create issue +'  css='' />
                     </Link>

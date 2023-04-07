@@ -15,7 +15,7 @@ export const Navbar = () => {
     ]
     return (
         <React.Fragment>
-            <div className="w-full">
+            <div className="">
                 <div className="pb-2 top-0 bg-green-300 ">
                     <div className=" bg-white p-2 mb-3 text-center">
                         vikas
