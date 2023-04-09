@@ -1,7 +1,7 @@
 import React from "react"
-
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import { LoginComponent } from './Auth'
+import { RequireAuth } from 'react-auth-kit'
+import { Route, Routes } from 'react-router-dom'
+import { LoginComponent, Register } from './Auth'
 import { Home } from "./Home"
 import { IssuePage } from "./Issue"
 
@@ -16,10 +16,18 @@ export const Base = () => {
                         <Navbar />
                     </div>
                     <div className="col-span-9 ">
+                        
                         <Routes>
-                            <Route path="/" element={<Home />} />
+                            {/* <RequireAuth loginPath={'/login'}> */}
+                            <Route path="/" element={
+                                 <RequireAuth loginPath={'/login'}>
+                                    <Home />
+                                </RequireAuth>
+                            } />
                             <Route path="/issue" element={<IssuePage />} />
                             <Route path="/login" element={<LoginComponent />} />
+                            <Route path="/register" element={<Register />} />
+                            {/* </RequireAuth>  */}
                         </Routes>
                     </div>
                 </div>

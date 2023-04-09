@@ -1,1 +1,1 @@
-export const  hover  = 'hover:bg-blue-200 hover:text-white  py-1 px-2 m-2 hover:rounded hover:shadow-md'
+export const  hover  = 'hover:bg-blue-200 hover:text-white  py-1 px-2 m-2 hover:rounded hover: -md'

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Count
 
-
-class TestReactApplication(APIView):
+class Authentication(APIView):
     def get(self, request):
-        return JsonResponse({'status': 'Its worked fine !'})
+        return JsonResponse({'sustaus': 200})

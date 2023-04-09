@@ -16,15 +16,15 @@ export const Navbar = () => {
     return (
         <React.Fragment>
             <div className="">
-                <div className="pb-2 top-0 bg-green-300 ">
-                    <div className=" bg-white p-2 mb-3 text-center">
+                <div className="pb-2 top-0 ">
+                    <div className="text-white p-2 mb-3 text-center">
                         vikas
                     </div>
                     <div className="">
                         {
                             actions.map((element) => (
                                 <Link to={`${element.link}`}>
-                                    <div className="m-1 mb-2 rounded bg-white p-2 hover:shadow-md hover:bg-slate-300 transition-all" >
+                                    <div className="m-1 mb-2 rounded text-white font-extrabold p-2 hover:bg-violet-900 bg-gradient-to-tr from-indigo-500 to-purple-700 -lg transition-all" >
                                         {element.action_name}
                                     </div>
                                 </Link>

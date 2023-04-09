@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Base } from './components/Base'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { AuthProvider } from 'react-auth-kit'
+import {BrowserRouter} from 'react-router-dom'
 
 
 function App() {
@@ -8,9 +9,14 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Base />
-      </BrowserRouter>
+        <AuthProvider authType={'cookie'}
+                  authName={'_auth'}
+                  cookieDomain={window.location.hostname} 
+                  cookieSecure>
+          <BrowserRouter>
+            <Base />
+          </BrowserRouter>
+        </ AuthProvider>
       
     </>
   )
