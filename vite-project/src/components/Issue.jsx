@@ -11,13 +11,10 @@ export const IssuePage = () => {
     <React.Fragment>
       <div className="mt-5 bg-white p-3 rounded ">
         <div className=" flex gap-3">
-          <input
+          <input 
             type="text"
-            className="border-2 border-blue-400 rounded w-5/6 p-1"
-          />
-          <ActionButton
-            name="Add title"
-            css="bg-green-400 text-white py-1 px-4"
+            placeholder="Add title . . ."
+            className="border-2 border-blue-400 rounded w-full p-1"
           />
         </div>
 

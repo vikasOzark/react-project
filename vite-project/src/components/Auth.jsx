@@ -1,5 +1,5 @@
 import { Button, Input } from "../assets/Utility"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import React, { useState, useEffect } from "react"
 import axios from 'axios'
 import {baseUrl} from '../assets/Urls'
@@ -12,7 +12,7 @@ export const LoginComponent = () => {
     const [formError, setFormError] = useState({})
     const [isSubmit, setIsSubmit] = useState(false)
     const signIn = useSignIn()
-    
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
       const {name, value} = e.target
@@ -29,14 +29,16 @@ export const LoginComponent = () => {
     useEffect(() => {
      if(Object.keys(formError).length === 0 && isSubmit){
       axios.post(`${baseUrl}/auth/login/`, formData).then((res) => {
-        // if(res.data.status == 200){
-        //   signIn({
-        //     token: res.data.token,
-        //     expiresIn:res.data.expiresIn,
-        //     tokenType: "Token",
-        //     authState: res.data.authUserState,
-        //   })
-        // }
+        console.log('saving ....');
+        if(res.data.status == 200){ 
+          signIn({
+            token: res.data.token,
+            expiresIn:res.data.expiresIn,
+            tokenType: "Token",
+            authState: res.data.authUserState,
+          })
+          navigate("/");
+        }
 
         
       })

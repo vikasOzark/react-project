@@ -18,16 +18,19 @@ export const Base = () => {
                     <div className="col-span-9 ">
                         
                         <Routes>
-                            {/* <RequireAuth loginPath={'/login'}> */}
                             <Route path="/" element={
                                  <RequireAuth loginPath={'/login'}>
                                     <Home />
                                 </RequireAuth>
                             } />
-                            <Route path="/issue" element={<IssuePage />} />
-                            <Route path="/login" element={<LoginComponent />} />
-                            <Route path="/register" element={<Register />} />
-                            {/* </RequireAuth>  */}
+                            <Route path="/issue" element={
+                                <RequireAuth loginPath={'/login'}>
+                                    <IssuePage />
+                                </RequireAuth>
+                                }/>
+                                
+                            <Route path="/login" element={<LoginComponent />}/>
+                            <Route path="/register" element={<Register />}/>
                         </Routes>
                     </div>
                 </div>

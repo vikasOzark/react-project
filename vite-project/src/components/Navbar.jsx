@@ -1,16 +1,18 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useIsAuthenticated, useSignOut } from 'react-auth-kit'
 
 export const Navbar = () => {
+    const isAuthenticated = useIsAuthenticated()
+    const signOut = useSignOut()
+    const navigate = useNavigate();
+    
     const actions = [
         {
             action_name : 'Home',
             link : '/'
         },
-        {
-            action_name : 'Login',
-            link : 'login'
-        },
+
 
     ]
     return (
@@ -30,6 +32,17 @@ export const Navbar = () => {
                                 </Link>
                                 
                             ))
+                        }
+                        {
+                            isAuthenticated()? <Link onClick={() => signOut()}>
+                            <div className="m-1 mb-2 rounded text-white font-extrabold p-2 hover:bg-violet-900 bg-gradient-to-tr from-indigo-500 to-purple-700 -lg transition-all" >
+                                Logout
+                            </div>
+                        </Link> : <Link to='/login'>
+                            <div className="m-1 mb-2 rounded text-white font-extrabold p-2 hover:bg-violet-900 bg-gradient-to-tr from-indigo-500 to-purple-700 -lg transition-all" >
+                                Login
+                            </div>
+                        </Link>
                         }
                         
                     </div>

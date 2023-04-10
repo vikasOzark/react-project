@@ -44,7 +44,7 @@ class AuthenticateViewSet(ViewSet):
                 'name': user.first_name,
                 'username': user.username,
                 'email': user.email,
-                'user_role': user.user_role,
+                # 'user_role': user.user_role,
             }
             
         return JsonResponse(
