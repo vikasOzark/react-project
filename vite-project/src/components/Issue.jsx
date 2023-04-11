@@ -49,7 +49,6 @@ export const IssuePage = () => {
   }
 
   useEffect(() => {
-    console.log('=================', auth())
     axios.get(`${baseUrl}/create-tag/`, {params:{user: auth().username}} ).then((res) => {
       setTags(res.data.data)
       console.log(res);

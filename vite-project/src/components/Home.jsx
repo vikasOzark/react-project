@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActionButton  ,ChipsSmall } from '../assets/Utility'
 import { Link } from 'react-router-dom'
 import {TfiLayoutListThumb} from 'react-icons/tfi'
@@ -25,14 +25,16 @@ export const IssiePageNaviagte = () => {
         return {
             
         }
-    }
+    } 
 
 
 export const Home = () => {
     const auth = useAuthUser()
+    const [issueData, setIssueData] = useState([])
+    
     useEffect(() => {
         axios.get(`${baseUrl}/issue-create/`, {params:{user:auth().username}}).then((res) => {
-            console.log(res)
+            setIssueData(res.data.data)
         })
     })
     
@@ -70,13 +72,18 @@ export const Home = () => {
             </div>
 
             <div className="mt-2">
-                <IssueCard title='Login page create for authentication'
-                    auther='vikas'
-                    issueID='1189'
-                    days='3'
-                    daysUpdate='1'
-                    tags = {Tags}
-                />
+                {issueData.map((items, index) => {
+                    return (
+
+                        <IssueCard title='Login page create for authentication'
+                            auther='vikas'
+                            issueID='1189'
+                            days='3'
+                            daysUpdate='1'
+                            tags = {Tags}
+                        />
+                    )
+                })}
             </div>
         </>
     )

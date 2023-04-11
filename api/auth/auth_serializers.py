@@ -9,7 +9,3 @@ class UserCreateSerializers(serializers.ModelSerializer):
         fields = ['first_name', 'email', 'username', 'password']
         
 
-class TagsSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = models.Tags
-        fields = ['title']

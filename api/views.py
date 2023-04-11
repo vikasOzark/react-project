@@ -3,15 +3,16 @@ from rest_framework.views import APIView
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Count
 from . import models
-from .auth.auth_serializers import TagsSerializers 
+from .serializers import TagsSerializers, IssueSerializer 
 
 
-class CreateIssue(APIView):
+class IssueHandlerAPIView(APIView):
     def get(self, request):
         params = request.query_params
         issues = models.Issue.objects.filter(creator__username=params.get('user'))
-        print(issues.values())
-        return JsonResponse({'sustaus': 200, 'data': list(issues)})
+        serializer = IssueSerializer(issues, many=True).data
+        print(serializer) 
+        return JsonResponse({'sustaus': 200, 'data': serializer})
     
     def post(self, request):
         issue_data = request.data
