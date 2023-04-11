@@ -29,7 +29,7 @@ export const LoginComponent = () => {
     useEffect(() => {
      if(Object.keys(formError).length === 0 && isSubmit){
       axios.post(`${baseUrl}/auth/login/`, formData).then((res) => {
-        console.log('saving ....');
+        console.log('saving ....', res);
         if(res.data.status == 200){ 
           signIn({
             token: res.data.token,

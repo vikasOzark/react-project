@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ActionButton  ,ChipsSmall } from '../assets/Utility'
 import { Link } from 'react-router-dom'
 import {TfiLayoutListThumb} from 'react-icons/tfi'
+import axios from "axios";
+import { baseUrl } from '../assets/Urls';
+import {useAuthUser} from 'react-auth-kit'
+
 
 export const Tags = [
     {
@@ -15,6 +19,8 @@ export const Tags = [
 
 ]
 
+
+
 export const IssiePageNaviagte = () => {
         return {
             
@@ -23,6 +29,13 @@ export const IssiePageNaviagte = () => {
 
 
 export const Home = () => {
+    const auth = useAuthUser()
+    useEffect(() => {
+        axios.get(`${baseUrl}/issue-create/`, {params:{user:auth().username}}).then((res) => {
+            console.log(res)
+        })
+    })
+    
     return (
         <>
             <div className="mt-2 cursor-pointer">

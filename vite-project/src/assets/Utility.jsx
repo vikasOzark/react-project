@@ -14,7 +14,7 @@ export const Input = (props) => {
 
 export const ActionButton = (props) => {
     return (
-        <button onClick={props.action} className={`${props.css} rounded-md px-3  text-blue-900 hover:bg-blue-600 hover:text-white transition-all py-1 bg-blue-300`}> {props.name}</button>
+        <button name={props.btnActionType} onClick={props.action} className={`${props.css} rounded-md px-3  text-blue-900 hover:bg-blue-600 hover:text-white transition-all py-1 bg-blue-300`}> {props.name}</button>
     )
 }
 
