@@ -35,7 +35,7 @@ export const Navbar = () => {
                         }
                         {
                             isAuthenticated()? <Link onClick={() => signOut()}>
-                            <div className="m-1 mb-2 rounded text-white font-extrabold p-2 hover:bg-violet-900 bg-gradient-to-tr from-indigo-500 to-purple-700 -lg transition-all" >
+                            <div className="m-1 mb-2 rounded text-white font-extrabold p-2 hover:bg-violet-900 bg-gray-400 transition-all" >
                                 Logout
                             </div>
                         </Link> : <Link to='/login'>

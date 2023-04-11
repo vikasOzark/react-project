@@ -19,7 +19,7 @@ class Tags(models.Model):
     )
     
     title=models.CharField(max_length=100)
-    color=models.CharField(max_length=20, choices=COLORS, unique=True)
+    # color=models.CharField(max_length=20, choices=COLORS, unique=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
     
@@ -35,7 +35,7 @@ class Issue(models.Model):
     issue_title = models.CharField(max_length=255)
     issue_detail=models.TextField()
     tags = models.ManyToManyField(Tags, related_name='issue_tags')
-    issue_status=models.CharField(max_length=20, choices=ISSUE_STATUS)
+    issue_status=models.CharField(max_length=20, choices=ISSUE_STATUS, default='OPEN')
     assigned_user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_user')
     created_at=models.DateTimeField(auto_now_add=True, editable=False)
     modify_on=models.DateTimeField(auto_now_add=True)

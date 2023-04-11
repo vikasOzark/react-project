@@ -15,12 +15,12 @@ class AuthenticateViewSet(ViewSet):
             user_object =  User.objects.create_user(
                 username=serializer.validated_data.get('username'),
                 email=serializer.validated_data.get('email'),
-                first_name=serializer.validated_data.get('email'),
+                first_name=serializer.validated_data.get('first_name'),
                 password=serializer.validated_data.get('password'),
             )
 
             token = Token.objects.create(user=user_object)
-            return JsonResponse({'status': 200, 'token': token})
+            return JsonResponse({'status': 200, 'token': str(token)})
         else:
             return JsonResponse({'status': 400, 'error': serializer.errors})
         

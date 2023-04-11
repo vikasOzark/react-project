@@ -20,7 +20,8 @@ urlpatterns = [
     # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     
     path('auth/', include(rounter.urls)),
-    path('', views.Authentication.as_view()),
+    path('issue-create/', views.CreateIssue.as_view()),
+    path('create-tag/', views.TagsManager.as_view()),
 ]
 
 # urlpatterns = rounter.urls
