@@ -13,6 +13,7 @@ export const Home = () => {
     useEffect(() => {
         axios.get(`${baseUrl}/issue-create/`, {params:{user:auth().username}}).then((res) => {
             setIssueData(res.data.data)
+
         })
         .catch((err) => console.log(err));
     }, [])
@@ -51,20 +52,26 @@ export const Home = () => {
             </div>
 
             <div className="mt-2">
+    
+            {
+    "first_name": ""
+}
                 
                 {issueData.map((item, index) => {
+                    console.log(item)
                     return (
+                        <></>
 
-                        <Link key={index} to={`/issue/${item.id}`}>
-                            <IssueCard  
-                            title={item.issue_title}
-                            auther={item.creator}
-                            issueID={item.id}
-                            days={item.created_at}
-                            daysUpdate={item.modify_on}
-                            tags = {item.tags}
-                        />
-                        </Link>
+                        // <Link key={index} to={`/issue/${item.id}`}>
+                        //     <IssueCard  
+                        //     title={item.issue_title}
+                        //     auther={item.creator}
+                        //     issueID={item.id}
+                        //     days={item.created_at}
+                        //     daysUpdate={item.modify_on}
+                        //     tags = {item.tags}
+                        // />
+                        // </Link>
                     )
                 })}
             </div>
@@ -103,5 +110,7 @@ export const IssueCard = (props) => {
         </React.Fragment>
     )
 }
+
+
 
 

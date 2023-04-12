@@ -5,50 +5,16 @@ from django.db.models import Count
 from . import models
 from rest_framework.decorators import api_view
 from django.forms.models import model_to_dict
-# from .serializers import TagsSerializers, IssueSerializer 
+from .serializers import  IssueSerializer , TagsSerializer
 
 
 class IssueHandlerAPIView(APIView):
     def get(self, request):
         params = request.query_params
-        issues = models.Issue.objects.filter(creator__username=params.get('user')).values()
-        # serializer = IssueSerializer(issues, many=True).data
-        
-        data = [{
-            'id':1,
-            'issue_title': 'Test titel',
-            'issue_body' : 'isuue body text',
-            'creator':'kumar dev.',
-            'tags' : [
-                    {
-                        'id':1,
-                        'title': 'bug'
-                    }
-                ],
-            'issue_status' : 'OPEN',
-            'assigned_user' : 'Vikas',
-            'created_at' : '12/05/2023',
-            'modify_on' : '12/05/2023'
-             
-                },{
-                'id':2,
-                'issue_title': 'Test titel',
-                'issue_body' : 'isuue body text',
-                
-            'creator':'kumar dev.',
-                'tags' : [
-                        {
-                            'id':1,
-                            'title': 'test'
-                        }
-                    ],
-                'issue_status' : 'OPEN',
-                'assigned_user' : 'Vikas',
-                'created_at' : '12/05/2023',
-                'modify_on' : '12/05/2023'
-             
-                },  
-                ]
+        issues = models.Issue.objects.filter(creator__username=params.get('user'))
+        data = IssueSerializer(issues, many=True).data
+        print(data)
+ 
         return JsonResponse({'sustaus': 200, 'data': data})
     
     def post(self, request):
