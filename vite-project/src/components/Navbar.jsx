@@ -24,8 +24,8 @@ export const Navbar = () => {
                     </div>
                     <div className="">
                         {
-                            actions.map((element) => (
-                                <Link to={`${element.link}`}>
+                            actions.map((element, index) => (
+                                <Link to={`${element.link}`} key={index}>
                                     <div className="m-1 mb-2 rounded text-white font-extrabold p-2 hover:bg-violet-900 bg-gradient-to-tr from-indigo-500 to-purple-700 -lg transition-all" >
                                         {element.action_name}
                                     </div>

@@ -23,6 +23,12 @@ export const Base = () => {
                                     <Home />
                                 </RequireAuth>
                             } />
+                            <Route path="/issue/:id" element={
+                                <RequireAuth loginPath={'/login'}>
+                                    <IssuePage />
+                                </RequireAuth>
+                                }/>
+
                             <Route path="/issue" element={
                                 <RequireAuth loginPath={'/login'}>
                                     <IssuePage />

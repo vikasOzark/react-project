@@ -4,6 +4,7 @@ import { baseUrl } from "../assets/Urls";
 import { ActionButton } from "../assets/Utility";
 import "../index.css";
 import {useAuthUser} from 'react-auth-kit'
+import { useParams } from "react-router-dom";
 
 
 export const IssuePage = () => {
@@ -15,9 +16,11 @@ export const IssuePage = () => {
   const [person, setPerson] = useState(['Vikas', 'Mr. Kumar', 'New dev'])
   const [selectedPerson, setSelectedPerson] = useState([])
   const [newTagCreate, setNewTags] = useState('')
-
+  const [isUpdate, setIsUpdate] = useState('')
+  
   const auth = useAuthUser()
-
+  const {id} = useParams()
+  
   const clickHandlePerson = (e) => {
     if(selectedPerson.includes(e.target.innerText )){
       const newList = selectedPerson.filter((item) => item !== e.target.innerText);
@@ -35,6 +38,7 @@ export const IssuePage = () => {
 
   const saveIssue = (e) => {
     const issueData = {
+      id: isUpdate,
       issue_title: textData.issue_title,
       issue_detail: textData.issue_detail,
       tags: selectedTag,
@@ -48,11 +52,31 @@ export const IssuePage = () => {
     })
   }
 
+  const createTagList = (tagData) => {
+    let arr = []
+    tagData.forEach(element => {
+      arr.push(element.title)
+    });
+
+    return arr
+  }
+
+
   useEffect(() => {
     axios.get(`${baseUrl}/create-tag/`, {params:{user: auth().username}} ).then((res) => {
       setTags(res.data.data)
-      console.log(res);
     })
+
+    if(id){
+      axios.get(`${baseUrl}/update-isuue/`, {params:{id: id}} ).then((res) => {
+        setTags(createTagList(res.data.data.tags))
+        setSelectedTag(createTagList(res.data.data.tags))
+      })
+
+      setIsUpdate(id)
+      
+    }
+
   }, []);
 
 
@@ -75,7 +99,7 @@ export const IssuePage = () => {
   
 
   const clickHandleTags = (e) => {
-    if(selectedTag.includes(e.target.value )){
+    if(selectedTag.includes(e.target.innerText )){
       const newList = selectedTag.filter((item) => item !== e.target.innerText);
       setSelectedTag(newList)
     } else {
@@ -145,6 +169,15 @@ export const DropDown = (props) => {
           </div>
         ))
       }
+
+      {
+        props.options.length === 0 ? 
+        <div onClick={props.oprionCLick} className=" bg-red-300 text-white cursor-pointer font-semibold rounded w-[16rem] mb-1 p-1">
+          Empty 
+        </div> :
+        <></>
+      }
+      
       {
         props.isInput? 
         <div className=" flex gap-2 w-full">

@@ -1,31 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { ActionButton  ,ChipsSmall } from '../assets/Utility'
 import { Link } from 'react-router-dom'
-import {TfiLayoutListThumb} from 'react-icons/tfi'
 import axios from "axios";
 import { baseUrl } from '../assets/Urls';
 import {useAuthUser} from 'react-auth-kit'
-
-
-export const Tags = [
-    {
-        tag_name : 'feature',
-        color : 'blue',
-    },
-    {
-        tag_name : 'implimentation',
-        color : 'red',
-    },
-
-]
-
-
-
-export const IssiePageNaviagte = () => {
-        return {
-            
-        }
-    } 
 
 
 export const Home = () => {
@@ -36,7 +14,8 @@ export const Home = () => {
         axios.get(`${baseUrl}/issue-create/`, {params:{user:auth().username}}).then((res) => {
             setIssueData(res.data.data)
         })
-    })
+        .catch((err) => console.log(err));
+    }, [])
     
     return (
         <>
@@ -72,16 +51,20 @@ export const Home = () => {
             </div>
 
             <div className="mt-2">
-                {issueData.map((items, index) => {
+                
+                {issueData.map((item, index) => {
                     return (
 
-                        <IssueCard title='Login page create for authentication'
-                            auther='vikas'
-                            issueID='1189'
-                            days='3'
-                            daysUpdate='1'
-                            tags = {Tags}
+                        <Link key={index} to={`/issue/${item.id}`}>
+                            <IssueCard  
+                            title={item.issue_title}
+                            auther={item.creator}
+                            issueID={item.id}
+                            days={item.created_at}
+                            daysUpdate={item.modify_on}
+                            tags = {item.tags}
                         />
+                        </Link>
                     )
                 })}
             </div>
@@ -100,14 +83,14 @@ export const Chips = (props) => {
 export const IssueCard = (props) => {
     return (
         <React.Fragment >
-            <div className="flex rounded-md  -lg p-2 bg-white justify-between items-center">
+            <div className="flex rounded-md mb-2 p-2 bg-white justify-between items-center">
                 <div className="">
                     <h2 className='font-bold text-gray-600'>{props.title}</h2>
                     <p className='text-gray-500 text-sm'>#{props.issueID} - <span className=''>created {props.days} days ago by <span className='text-blue-500 cursor-pointer'>{props.auther}</span></span>
                         {
-                            props.tags.map((tag) => {
+                            props.tags.map((tag, index) => {
                                 return (
-                                    <ChipsSmall color={tag.color} name={tag.tag_name} />
+                                    <ChipsSmall key={index} color={tag.color} name={tag.tag_name} />
                                 )
                             })
                         }

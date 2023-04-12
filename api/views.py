@@ -3,16 +3,53 @@ from rest_framework.views import APIView
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Count
 from . import models
-from .serializers import TagsSerializers, IssueSerializer 
+from rest_framework.decorators import api_view
+from django.forms.models import model_to_dict
+# from .serializers import TagsSerializers, IssueSerializer 
 
 
 class IssueHandlerAPIView(APIView):
     def get(self, request):
         params = request.query_params
-        issues = models.Issue.objects.filter(creator__username=params.get('user'))
-        serializer = IssueSerializer(issues, many=True).data
-        print(serializer) 
-        return JsonResponse({'sustaus': 200, 'data': serializer})
+        issues = models.Issue.objects.filter(creator__username=params.get('user')).values()
+        # serializer = IssueSerializer(issues, many=True).data
+        
+        data = [{
+            'id':1,
+            'issue_title': 'Test titel',
+            'issue_body' : 'isuue body text',
+            'creator':'kumar dev.',
+            'tags' : [
+                    {
+                        'id':1,
+                        'title': 'bug'
+                    }
+                ],
+            'issue_status' : 'OPEN',
+            'assigned_user' : 'Vikas',
+            'created_at' : '12/05/2023',
+            'modify_on' : '12/05/2023'
+             
+                },{
+                'id':2,
+                'issue_title': 'Test titel',
+                'issue_body' : 'isuue body text',
+                
+            'creator':'kumar dev.',
+                'tags' : [
+                        {
+                            'id':1,
+                            'title': 'test'
+                        }
+                    ],
+                'issue_status' : 'OPEN',
+                'assigned_user' : 'Vikas',
+                'created_at' : '12/05/2023',
+                'modify_on' : '12/05/2023'
+             
+                },  
+                ]
+        return JsonResponse({'sustaus': 200, 'data': data})
     
     def post(self, request):
         issue_data = request.data
@@ -44,6 +81,7 @@ class TagsManager(APIView):
         user = models.User.objects.get(username=get_data.get('user'))
         all_tags = models.Tags.objects.filter(creator=user).values_list('title', flat=True)
         tags = list(all_tags)
+        print(tags)
         
         return JsonResponse({'sustaus': 200, 'data':tags},  safe=False)
 
@@ -57,3 +95,26 @@ class TagsManager(APIView):
         all_tags = models.Tags.objects.filter(creator=user).only('title').values_list('title')
         
         return JsonResponse({'sustaus': 200, 'data':request.data.get('tagTitle')})
+    
+
+@api_view(['GET'])
+def get_issue(request):
+    # params = request.query_params
+    print('===>> ',request.query_params)
+    data = {
+            'id':1,
+            'issue_title': 'Test titel',
+            'issue_body' : 'isuue body text',
+            'creator':'kumar dev.',
+            'tags' : [
+                    {
+                        'id':1,
+                        'title': 'test'
+                    }
+                ],
+            'issue_status' : 'OPEN',
+            'assigned_user' : 'Vikas',
+             
+                }
+
+    return JsonResponse({'status' : 200 , 'data': data})
