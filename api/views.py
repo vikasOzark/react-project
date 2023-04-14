@@ -5,7 +5,7 @@ from django.db.models import Count
 from . import models
 from rest_framework.decorators import api_view
 from django.forms.models import model_to_dict
-from .serializers import  IssueSerializer , TagsSerializer
+from .serializers import  IssueSerializer , TagsSerializer, IssueCreateSerializer
 
 
 class IssueHandlerAPIView(APIView):
@@ -84,3 +84,18 @@ def get_issue(request):
                 }
 
     return JsonResponse({'status' : 200 , 'data': data})
+
+
+@api_view(['POST'])
+def data_update(request):
+    data = request.data
+    x = IssueCreateSerializer(data=data)
+    if x.is_valid(raise_exception=True):
+        x.save()
+    else:
+        print(x.errors)
+    return JsonResponse(
+        {
+        'status':200
+        }
+    )

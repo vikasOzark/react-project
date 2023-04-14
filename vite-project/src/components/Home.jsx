@@ -52,11 +52,7 @@ export const Home = () => {
             </div>
 
             <div className="mt-2">
-    
-            {
-    "first_name": ""
-}
-                
+          
                 {issueData.map((item, index) => {
                     console.log(item)
                     return (

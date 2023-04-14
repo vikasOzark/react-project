@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { LoginComponent, Register } from './Auth'
 import { Home } from "./Home"
 import { IssuePage } from "./Issue"
-
+import { ManageUser } from "./ManageUser"
 import { Navbar } from "./Navbar"
 
 export const Base = () => {
@@ -34,7 +34,8 @@ export const Base = () => {
                                     <IssuePage />
                                 </RequireAuth>
                                 }/>
-                                
+                            <Route path="/manage-team" element={<ManageUser />}/>
+                        
                             <Route path="/login" element={<LoginComponent />}/>
                             <Route path="/register" element={<Register />}/>
                         </Routes>
