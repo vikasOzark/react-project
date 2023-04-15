@@ -12,6 +12,10 @@ export const Navbar = () => {
             action_name : 'Home',
             link : '/'
         },
+        {
+            action_name : 'Manage team',
+            link : 'manage-team'
+        },
 
 
     ]
