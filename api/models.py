@@ -23,6 +23,8 @@ class Tags(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
     
+    def __str__(self) -> str:
+        return self.title
 
 class Issue(models.Model):
     ISSUE_STATUS = (
@@ -41,3 +43,5 @@ class Issue(models.Model):
     modify_on=models.DateTimeField(auto_now_add=True)
 
 
+    def __str__(self):
+        return self.issue_title

@@ -3,18 +3,18 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 
-
 class TagsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Tags
-        fields = ['title']
+        fields = ["title"]
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
-        fields = ['first_name']
-        
-        
+        fields = ["first_name"]
+
+
 class IssueSerializer(serializers.ModelSerializer):
     tags = TagsSerializer(many=True, read_only=True)
     creator = UserSerializer(read_only=True)
@@ -22,4 +22,34 @@ class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Issue
-        fields = ('id','creator', 'issue_title', 'issue_detail', 'issue_status', 'created_at', 'modify_on', 'tags', 'assigned_user')
+        fields = (
+            "id",
+            "creator",
+            "issue_title",
+            "issue_detail",
+            "issue_status",
+            "created_at",
+            "modify_on",
+            "tags",
+            "assigned_user",
+        )
+
+
+class IssueDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Issue
+        fields = [
+            'issue_title',
+            'issue_detail',
+            'tags',
+            'issue_title',
+            'issue_status'
+        ]
+        
+        def create(self, validated_data):
+            print(validated_data)
+            # viewers = validated_data.pop('viewers')  # removing viewers from validated_data
+            instance = models.Issue.objects.create(**validated_data)  # saving post object
+            # for viewer in viewers:
+            #     instance.viewers.add(viewer)
+            return instance
