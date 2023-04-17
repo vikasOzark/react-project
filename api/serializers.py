@@ -66,5 +66,5 @@ class IssueCreateSerializer(serializers.ModelSerializer):
 
 class UserSerializerNew(serializers.ModelSerializer):
     class Meta:
-        model = models.UserProfile
-        fields = ["boss"]
+        model = models.User
+        fields = '__all__'

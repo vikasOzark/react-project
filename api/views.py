@@ -84,10 +84,9 @@ class IssueHandlerAPIView(APIView):
 class GetEngineer(APIView):
     def get(self, request):
         params = request.query_params.get('search')
-        print(request.query_params)
         qs = []
-        if qs is not None:
-            qs = models.UserProfile.objects.filter(Q(user_role__icontains=params) | Q(user_role__icontains=params))
+        if params is not None and params != '':
+            qs = models.User.objects.filter(first_name__icontains=params)
             qs = UserSerializerNew(qs, many=True).data
         return JsonResponse({'data':qs})
 
@@ -126,5 +125,6 @@ class GetIssueList(generics.ListAPIView):
     def get_queryset(self):
         params = self.request.query_params
         issues = models.Issue.objects.filter(creator__username=params.get('user'))
-        print(issues)
         return issues
+    
+    

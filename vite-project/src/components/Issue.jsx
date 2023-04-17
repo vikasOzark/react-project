@@ -159,7 +159,6 @@ export const IssuePage = () => {
         <div className="borde  text-white rounded-md mt-3 ">
           <textarea
           value={textData.issue_detail}
-          value={textData.issue_detail}
             placeholder="Write something . . . "
             name="issue_detail" onChange={handleChange}
             className="border-2 p-2 border-purple-500 w-[100%] h-[50vh] rounded-md bg-transparent"></textarea>
