@@ -38,6 +38,10 @@ export const LoginComponent = () => {
             authState: res.data.authUserState,
           })
           navigate("/");
+        } else if(res.data.status == 404) {
+          const error = {}
+          error.authError = 'Please check you credencials !'
+          setFormError(error)
         }
 
         
@@ -102,6 +106,7 @@ export const LoginComponent = () => {
                 </button>
                   <Link className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to='/register'>Don't have a account </Link>
               </div>
+              <p className="px-1 bg-black text-white rounded-md mt-1">{formError.authError}</p>
             </form>
           </div>
         </div>

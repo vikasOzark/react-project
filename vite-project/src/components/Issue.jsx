@@ -8,11 +8,12 @@ import { useParams } from "react-router-dom";
 
 
 export const IssuePage = () => {
+  const initialData = {issue_title:'', issue_detail:''}
   const [isDrop, setDrop] = useState(false);
   const [Assign, setAssign] = useState(false);
   const [tags, setTags] = useState([])
   const [selectedTag, setSelectedTag] = useState([])
-  const [textData, setTextData] = useState({issue_title:'', issue_detail:''});
+  const [textData, setTextData] = useState(initialData);
   const [person, setPerson] = useState(['Vikas', 'Mr. Kumar', 'New dev'])
   const [selectedPerson, setSelectedPerson] = useState([])
   const [newTagCreate, setNewTags] = useState('')
@@ -32,22 +33,34 @@ export const IssuePage = () => {
 
   const handleChange = (e) => {
     const {name, value} = e.target
+    console.log(value);
     setTextData({...textData, [name]: value})
+    console.log(textData.issue_detail);
     
   }
-
+  
   const saveIssue = (e) => {
     const issueData = {
       id: isUpdate,
       issue_title: textData.issue_title,
       issue_detail: textData.issue_detail,
-      tags: selectedTag,
+      tags: [
+        {
+            "title": "Bug"
+        },
+        {
+            "title": "hello"
+        }
+    ],
       issue_status: 'OPEN',
-      assigned_user: selectedPerson,
+      assigned_user: {
+        "first_name": "vikas"
+    },
       saveType:e.target.name,
       user: auth().username
     }
-    axios.post(`${baseUrl}/issue-create/`, issueData).then((res) => {
+    console.log(JSON.stringify(issueData));
+    axios.put(`${baseUrl}/data_update/${id}/`, issueData).then((res) => {
       console.log(res)
     })
   }
@@ -68,11 +81,16 @@ export const IssuePage = () => {
     })
 
     if(id){
-      axios.get(`${baseUrl}/update-isuue/`, {params:{id: id}} ).then((res) => {
-        setTags(createTagList(res.data.data.tags))
-        setSelectedTag(createTagList(res.data.data.tags))
-      })
+      axios.get(`${baseUrl}/data_update/${id}/`, {params:{id: id}} ).then((res) => {
+        console.log(textData)
+        console.log(selectedTag)
+        console.log(res.data)
 
+        setTags(createTagList(res.data.tags))
+        setSelectedTag(createTagList(res.data.tags))
+        setTextData({...setTextData, 'issue_title':res.data.issue_title, 'issue_detail':res.data.issue_detail})
+        
+      })
       setIsUpdate(id)
       
     }
@@ -113,7 +131,7 @@ export const IssuePage = () => {
     <React.Fragment >
       <div className=" p-3 h-screen rounded " >
         <div className=" flex gap-3">
-          <input type="text" name="issue_title" onChange={handleChange} placeholder="Add title . . ." className="border border-white bg-transparent text-white rounded w-full p-1" />
+          <input value={textData.issue_title} type="text" name="issue_title" onChange={handleChange} placeholder="Add title . . ." className="border border-white bg-transparent text-white rounded w-full p-1" />
         </div>
 
         <div className="flex gap-2">
@@ -136,6 +154,7 @@ export const IssuePage = () => {
         </div>
         <div className="borde  text-white rounded-md mt-3 ">
           <textarea
+          value={textData.issue_detail}
             placeholder="Write something . . . "
             name="issue_detail" onChange={handleChange}
             className="border-2 p-2 border-purple-500 w-[100%] h-[50vh] rounded-md bg-transparent"></textarea>

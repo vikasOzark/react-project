@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from "axios";
 import { baseUrl } from '../assets/Urls';
 import {useAuthUser} from 'react-auth-kit'
-
+import moment from "moment";
 
 export const Home = () => {
     const auth = useAuthUser()
@@ -12,7 +12,9 @@ export const Home = () => {
     
     useEffect(() => {
         axios.get(`${baseUrl}/issue-create/`, {params:{user:auth().username}}).then((res) => {
-            setIssueData(res.data.data)
+            setIssueData([...res.data.data])
+            console.log('==<>>  ',res.data.data);
+
 
         })
         .catch((err) => console.log(err));
@@ -52,22 +54,20 @@ export const Home = () => {
             </div>
 
             <div className="mt-2">
-          
+                 
                 {issueData.map((item, index) => {
-                    console.log(item)
                     return (
-                        <></>
 
-                        // <Link key={index} to={`/issue/${item.id}`}>
-                        //     <IssueCard  
-                        //     title={item.issue_title}
-                        //     auther={item.creator}
-                        //     issueID={item.id}
-                        //     days={item.created_at}
-                        //     daysUpdate={item.modify_on}
-                        //     tags = {item.tags}
-                        // />
-                        // </Link>
+                        <Link key={index} to={`/issue/${item.id}`}>
+                            <IssueCard  
+                            title={item.issue_title}
+                            // auther={item.creator}
+                            issueID={item.id}
+                            days={item.created_at}
+                            daysUpdate={item.modify_on}
+                            tags = {item.tags}
+                        />
+                        </Link>
                     )
                 })}
             </div>
@@ -89,7 +89,7 @@ export const IssueCard = (props) => {
             <div className="flex rounded-md mb-2 p-2 bg-white justify-between items-center">
                 <div className="">
                     <h2 className='font-bold text-gray-600'>{props.title}</h2>
-                    <p className='text-gray-500 text-sm'>#{props.issueID} - <span className=''>created {props.days} days ago by <span className='text-blue-500 cursor-pointer'>{props.auther}</span></span>
+                    <p className='text-gray-500 text-sm'>#{props.issueID} - <span className=''>created {moment(`${props.days}`).fromNow()} days ago by <span className='text-blue-500 cursor-pointer'>{props.auther}</span></span>
                         {
                             props.tags.map((tag, index) => {
                                 return (
@@ -100,7 +100,8 @@ export const IssueCard = (props) => {
                     </p>
                 </div>
                 <div className="text-gray-400 text-sm">
-                    <p>updated {props.daysUpdate} day ago</p>
+                    {/* <p format="DD/MM/YYYY">updated {props.daysUpdate} day ago</p> */}
+                    <p>{moment(`${props.daysUpdate}`).fromNow()} day ago</p>
                 </div>
             </div>
         </React.Fragment>
