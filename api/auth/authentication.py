@@ -44,13 +44,16 @@ class AuthenticateViewSet(ViewSet):
                 'name': user.first_name,
                 'username': user.username,
                 'email': user.email,
-                # 'user_role': user.user_role,
             }
             
+            return JsonResponse(
+                {'status': 200, 
+                'token': str(TOKEN), 
+                'authUserState': user_data,
+                'expiresIn': 20000
+                })
+        
         return JsonResponse(
-            {'status': 200, 
-             'token': str(TOKEN), 
-             'authUserState': user_data,
-             'expiresIn': 20000
-             })
+                {'status': 404,
+                })
     

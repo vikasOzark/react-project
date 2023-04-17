@@ -22,8 +22,10 @@ urlpatterns = [
     path('auth/', include(rounter.urls)),
     path('issue-create/', views.IssueHandlerAPIView.as_view()),
     path('create-tag/', views.TagsManager.as_view()),
-    path('update-isuue/', views.get_issue),
-    path('data_update/', views.data_update),
+    path('data_update/<int:pk>/', views.IssueDetailView.as_view()),
+    path('list/', views.GetIssueList.as_view()),
+    path("members/", views.GetEngineer.as_view())
+
 ]
 
 # urlpatterns = rounter.urls
