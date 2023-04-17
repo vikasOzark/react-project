@@ -5,6 +5,7 @@ import axios from "axios";
 import { baseUrl } from '../assets/Urls';
 import {useAuthUser} from 'react-auth-kit'
 import moment from "moment";
+import moment from "moment";
 
 export const Home = () => {
     const auth = useAuthUser()
@@ -55,9 +56,20 @@ export const Home = () => {
 
             <div className="mt-2">
                  
+                 
                 {issueData.map((item, index) => {
                     return (
 
+                        <Link key={index} to={`/issue/${item.id}`}>
+                            <IssueCard  
+                            title={item.issue_title}
+                            // auther={item.creator}
+                            issueID={item.id}
+                            days={item.created_at}
+                            daysUpdate={item.modify_on}
+                            tags = {item.tags}
+                        />
+                        </Link>
                         <Link key={index} to={`/issue/${item.id}`}>
                             <IssueCard  
                             title={item.issue_title}
@@ -90,6 +102,7 @@ export const IssueCard = (props) => {
                 <div className="">
                     <h2 className='font-bold text-gray-600'>{props.title}</h2>
                     <p className='text-gray-500 text-sm'>#{props.issueID} - <span className=''>created {moment(`${props.days}`).fromNow()} days ago by <span className='text-blue-500 cursor-pointer'>{props.auther}</span></span>
+                    <p className='text-gray-500 text-sm'>#{props.issueID} - <span className=''>created {moment(`${props.days}`).fromNow()} days ago by <span className='text-blue-500 cursor-pointer'>{props.auther}</span></span>
                         {
                             props.tags.map((tag, index) => {
                                 return (
@@ -100,6 +113,8 @@ export const IssueCard = (props) => {
                     </p>
                 </div>
                 <div className="text-gray-400 text-sm">
+                    {/* <p format="DD/MM/YYYY">updated {props.daysUpdate} day ago</p> */}
+                    <p>{moment(`${props.daysUpdate}`).fromNow()} day ago</p>
                     {/* <p format="DD/MM/YYYY">updated {props.daysUpdate} day ago</p> */}
                     <p>{moment(`${props.daysUpdate}`).fromNow()} day ago</p>
                 </div>

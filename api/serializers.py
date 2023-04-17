@@ -12,7 +12,7 @@ class TagsSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
-        fields = ['id', "first_name", 'email']
+        fields = ["first_name"]
 
 
 class IssueSerializer(serializers.ModelSerializer):

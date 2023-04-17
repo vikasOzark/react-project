@@ -18,6 +18,11 @@ class IssueHandlerAPIView(APIView):
             data = IssueSerializer(issues).data
             return JsonResponse({'sustaus': 200, 'data': data})
             
+        if params.get('id') is not None:
+            issues = models.Issue.objects.get(pk=params.get('id'))
+            data = IssueSerializer(issues).data
+            return JsonResponse({'sustaus': 200, 'data': data})
+            
         issues = models.Issue.objects.filter(creator__username=params.get('user'))
         data = IssueSerializer(issues, many=True).data
         return JsonResponse({'sustaus': 200, 'data': data})
@@ -48,6 +53,20 @@ class IssueHandlerAPIView(APIView):
         obj.save()
         
         return JsonResponse({'sustaus': 200})
+
+    def update_issue(slef, id, issue_data):
+        issue = models.Issue.objects.get(pk=id)
+        ser = IssueDataSerializer(data=issue)
+        tags = models.Tags.objects.filter(title__in=issue_data.get('tags'))
+        issue.issue_title = issue_data.get('issue_title'),
+        issue.issue_detail = issue_data.get('issue_detail'),
+        # issue.issue_status = issue_data.get('')
+        
+        issue.tags.add(*tags)
+        issue.save()
+        
+        return JsonResponse({'sustaus': 200})
+    
 
     def update_issue(slef, id, issue_data):
         issue = models.Issue.objects.get(pk=id)

@@ -34,12 +34,15 @@ export const IssuePage = () => {
   const handleChange = (e) => {
     const {name, value} = e.target
     console.log(value);
+    console.log(value);
     setTextData({...textData, [name]: value})
+    console.log(textData.issue_detail);
     console.log(textData.issue_detail);
     
   }
   
   const saveIssue = (e) => {
+    // console.log(textData);
     const issueData = {
       id: isUpdate,
       issue_title: textData.issue_title,
@@ -132,6 +135,7 @@ export const IssuePage = () => {
       <div className=" p-3 h-screen rounded " >
         <div className=" flex gap-3">
           <input value={textData.issue_title} type="text" name="issue_title" onChange={handleChange} placeholder="Add title . . ." className="border border-white bg-transparent text-white rounded w-full p-1" />
+          <input value={textData.issue_title} type="text" name="issue_title" onChange={handleChange} placeholder="Add title . . ." className="border border-white bg-transparent text-white rounded w-full p-1" />
         </div>
 
         <div className="flex gap-2">
@@ -154,6 +158,7 @@ export const IssuePage = () => {
         </div>
         <div className="borde  text-white rounded-md mt-3 ">
           <textarea
+          value={textData.issue_detail}
           value={textData.issue_detail}
             placeholder="Write something . . . "
             name="issue_detail" onChange={handleChange}
